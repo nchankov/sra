@@ -1,4 +1,4 @@
-# Server Resource Alert
+# Server Resource Alert Script
 
 This is a bash script used to monitoring and reporting problems in the server resources.
 
