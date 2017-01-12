@@ -10,23 +10,14 @@
 #                                                #
 ##################################################
 
-##
-# TODO:
-# Set $MAILTO below if you want to receive an email when something went wrong
-# add this script in crontab for example every 15 minutes
-# e.g.
-# */15 * * * * /path/to/the/script/srm.sh email@server.com
-##
-
 #email which will be notified
 MAILTO=""
 subject="Alert: The server experience troubles"
 message=""
 
 #if parameter 1 is passed use it as $MAILTO
-if [ ! -z "$1" ]
-  then
-		MAILTO="$1"
+if [ ! -z "$1" ]; then
+  MAILTO="$1"
 fi
 
 # max load per processor
@@ -55,7 +46,7 @@ load3=`cat /proc/loadavg | awk '{print $3}'` #last 15 minutes
 
 if echo $treshold $load3 | awk '{exit $1>$2?1:0}'
 then
-	message="load is high:"$load3
+   message="load is high:"$load3
 fi
 
 ##
@@ -63,16 +54,16 @@ fi
 ##
 
 disk_message=$(df -h | awk -v ALERT="$max_used" '
-    NR == 1 {next}
-    $1 == "abc:/xyz/pqr" {next}
-    $1 == "tmpfs" {next}
-    $1 == "/dev/cdrom" {next}
-		$1 == "none" {next}
-    1 {sub(/%/,"",$5)}
-    $5 >= ALERT {printf "%s is almost full: %d%%\n", $1, $5}
+   NR == 1 {next}
+   $1 == "abc:/xyz/pqr" {next}
+   $1 == "tmpfs" {next}
+   $1 == "/dev/cdrom" {next}
+   $1 == "none" {next}
+   1 {sub(/%/,"",$5)}
+   $5 >= ALERT {printf "%s is almost full: %d%%\n", $1, $5}
 ')
 if [ -n "$disk_message" ]; then
-	message=$message$'\n'$disk_message
+   message=$message$'\n'$disk_message
 fi
 
 ##
@@ -81,12 +72,12 @@ fi
 ##
 
 if [ -n "$message" ]; then
-	# if the email is set, then send an email otherwise print the message
-	# on the screen
-	if [ ! -z $MAILTO ]; then
-		echo "$message" | mail -s $subject $MAILTO
-	else
-		echo "$subject"
-		echo "$message"
-	fi
+   # if the email is set, then send an email otherwise print the message
+   # on the screen
+   if [ ! -z $MAILTO ]; then
+      echo "$message" | mail -s $subject $MAILTO
+   else
+      echo "$subject"
+      echo "$message"
+   fi
 fi
