@@ -27,11 +27,13 @@ Add the following line in the crontab
 This will run the script on every 15 minutes and will check the server load and disk 
 usage and if there are problems, it will send a notification email to the specified email
 
-The tresholds are:
+## The tresholds are:
 
 ### Processors
 0.8 for each processor (it automatically multiply that number by number of cores so if
-your server has 4 cores it will send email if the load is more than 3.2
+your server has 4 cores it will send email if the load is more than 3.2.
+Note that this will monitor the long term load (15 min) of the processors, so short spikes
+won't be reported. You can adjust the treshold by editing the file
 
 ### Disk usage
 90% of the disk capacity is full - it will check all of the disks and will send a combined report
