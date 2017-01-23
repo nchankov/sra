@@ -12,7 +12,7 @@
 
 #email which will be notified
 MAILTO=""
-subject="Alert: The server experience troubles"
+subject="Alert - the server experience troubles"
 message=""
 
 #if parameter 1 is passed use it as $MAILTO
