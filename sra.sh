@@ -75,7 +75,7 @@ if [ -n "$message" ]; then
    # if the email is set, then send an email otherwise print the message
    # on the screen
    if [ ! -z $MAILTO ]; then
-      echo "$message" | mail -s $subject $MAILTO
+      echo "$message" | mail -s "$subject" $MAILTO
    else
       echo "$subject"
       echo "$message"
