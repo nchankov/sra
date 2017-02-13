@@ -9,7 +9,7 @@ Currently the script monitors the server load and disk usage parameters
 clone the repository on the server which you would like to monitor
 
 ```
-git clone git@github.com:nchankov/sra.git
+git clone https://github.com/nchankov/sra.git
 ```
 
 Then add this script into your crontab
