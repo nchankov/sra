@@ -20,7 +20,7 @@
 
 #email which will be notified
 MAILTO=""
-subject="Alert: The server experience troubles"
+subject="Alert: The $ip server experience troubles"
 message=""
 
 #if parameter 1 is passed use it as $MAILTO
@@ -81,12 +81,14 @@ fi
 ##
 
 if [ -n "$message" ]; then
+	#get the server IP
+	ip=`curl -s ipecho.net/plain`
 	# if the email is set, then send an email otherwise print the message
 	# on the screen
 	if [ ! -z $MAILTO ]; then
-		echo "$message" | mail -s $subject $MAILTO
+		echo "$message" | mail -s "$ip - $subject" $MAILTO
 	else
-		echo "$subject"
+		echo "$ip - $subject"
 		echo "$message"
 	fi
 fi
