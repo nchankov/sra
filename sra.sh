@@ -15,11 +15,6 @@ MAILTO=""
 subject="Alert the server experience troubles"
 message=""
 
-#if parameter 1 is passed use it as $MAILTO
-if [ ! -z "$1" ]; then
-  MAILTO="$1"
-fi
-
 # max load per processor
 # we are getting number of processors, so we need only the max load
 # per single processor
@@ -27,6 +22,44 @@ max_load=0.8
 
 #max used space in %
 max_used=90
+
+## Parameters to the script
+
+for i in "$@"
+do
+case $i in
+    -e=*|--email=*)
+    MAILTO="${i#*=}"
+    shift # past argument=value
+    ;;
+    -p=*|--processors=*)
+    max_load="${i#*=}"
+    shift # past argument=value
+    ;;
+    -s=*|--subject=*)
+    subject="${i#*=}"
+    shift # past argument=value
+    ;;
+    -u=*|--usage=*)
+    max_used="${i#*=}"
+    shift # past argument=value
+    ;;
+    -\?|-h|--help)
+    echo "Usage: sra.sh [OPTION...]";
+    echo "SRA - Server Resource Monitor"
+    echo "Sends alerts to a given email if some of the resources of the"
+    echo "machine are reaching the limits"
+    echo ""
+    echo "-e, --email=EMAIL             email which will be notified. If no email is specified the message will be printed on the screen."
+    echo "-p, --processors=DECIMAL      decimal value where 1 represent full load. Defailt value is 0.8"
+    echo "-u, --usage=NUMBER            percentage of the disk usage. where 100 is no space left. Default value is 90"
+    echo "-s, --subject=STRING          subject sent to the email. Default Value is: \"Alert the server experience troubles\""
+    echo "-?, -h, --help                display this help and exit"
+    exit;
+    shift # past argument=value
+    ;;
+esac
+done
 
 ##
 # Check server load
