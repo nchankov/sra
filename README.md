@@ -30,10 +30,15 @@ usage and if there are problems, it will send a notification email to the specif
 ## Options:
 
 -e= or --email=EMAIL          - email which will be notified. If no email is specified the message will be printed on the screen.
+
 -p, --processors=DECIMAL      decimal value where 1 represent full load. Defailt value is 0.8
+
 -u, --usage=NUMBER            percentage of the disk usage. where 100 is no space left. Default value is 90
+
 -s, --subject=STRING          subject sent to the email. Default Value is: "Alert the server experience troubles"
+
 -?, -h, --help                command explanation
+
 
 ## Default tresholds are:
 
