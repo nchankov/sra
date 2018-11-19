@@ -106,7 +106,7 @@ fi
 
 if [ -n "$message" ]; then
 	#get the server IP
-	ip=`curl -s ipecho.net/plain`
+	ip=`curl -s checkip.amazonaws.com`
 	# if the email is set, then send an email otherwise print the message
 	# on the screen
 	if [ ! -z $MAILTO ]; then
