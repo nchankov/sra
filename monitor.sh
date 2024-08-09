@@ -1,11 +1,13 @@
 #/bin/bash
 
+procesor_count=`grep -c ^processor /proc/cpuinfo`
+
 #processors
 load1=`cat /proc/loadavg | awk '{print $1}'` #Last minute
 load2=`cat /proc/loadavg | awk '{print $2}'` #Last 5 minutes
 load3=`cat /proc/loadavg | awk '{print $3}'` #last 15 minutes
 
-processors="{\"load\":{\"1\": \"${load1}\",\"5\": \"${load2}\",\"15\": \"${load3}\"}}"
+processors="{\"max\":\"${procesor_count}\",\"load\":{\"1\": \"${load1}\",\"5\": \"${load2}\",\"15\": \"${load3}\"}}"
 
 #memory
 mem_load1=`free -mh|grep "Mem:" | awk '{print $2}'` #all memory
