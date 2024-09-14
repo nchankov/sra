@@ -16,4 +16,6 @@ DEFAULTVALUE=""
 TITLE="${1:-$DEFAULTVALUE}"
 BODY="${2:-$DEFAULTVALUE}"
 
+BODY=${BODY//$'\n'/"\n"}
+
 echo "$BODY" | mail -s "$TITLE" $EMAIL
