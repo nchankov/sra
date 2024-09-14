@@ -32,6 +32,11 @@ git clone https://github.com/nchankov/sra.git
    you have to set the email address (check Requirements point 2) and
    pushbullet token (check Requirements point 1)
 
+3. if you want to allow certain IPs to be skipped when the user is logged 
+   in, then create .ip file (or copy the .ip.sample) and enter the allowed
+   IPs one at a row. You can use partial IPs e.g. 192.168 and it would 
+   match all ip starting with that
+
 2. Run activate.sh in the sra directory
 ```
 ./activate.sh

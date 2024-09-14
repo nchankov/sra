@@ -24,6 +24,12 @@ set -a
 source $DIR/.env
 set +a
 
+#check if the ip is in the allowed range and if so don't bother to notify
+IP=`$DIR/who.ip.sh`
+is_our_ip=`$DIR/allowed-ips.sh $IP`
+if [ is_our_ip == "1" ]; then
+   exit;
+fi
 
 if [ -z $NAME ]; then
    NAME=`curl -s checkip.amazonaws.com`
@@ -36,8 +42,6 @@ SUBJECT="Login into $NAME"
 message='';
 if [ "$PAM_TYPE" != "close_session" ]; then
     message=`$DIR/who.sh`
-    message+="\n"
-    message+=`date`
 fi
 
 if [[ ! -z $message ]]; then
