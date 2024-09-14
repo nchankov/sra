@@ -9,7 +9,7 @@
 #read variables from the .env file
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 set -a
-source $DIR/.env
+source $DIR/../.env
 set +a
 
 #remove the file if it's old enough

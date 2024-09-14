@@ -3,7 +3,7 @@
 #read variables from the .env file
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 set -a
-source $DIR/.env
+source $DIR/../.env
 set +a
 
 #dont send if email is not set
