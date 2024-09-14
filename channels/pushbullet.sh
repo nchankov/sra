@@ -1,8 +1,9 @@
 #!/bin/bash
 
 #read variables from the .env file
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 set -a
-source .env
+source $DIR/.env
 set +a
 
 DEFAULTVALUE=""
