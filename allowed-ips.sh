@@ -12,3 +12,4 @@ while read p; do
     exit
   fi
 done < $DIR/.ip
+echo "0"
