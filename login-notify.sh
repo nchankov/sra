@@ -35,7 +35,7 @@ SUBJECT="Login into $NAME"
 
 message='';
 if [ "$PAM_TYPE" != "close_session" ]; then
-    message=`./who.sh`
+    message=`$DIR/who.sh`
     message+="\n"
     message+=`date`
 fi
