@@ -4,13 +4,43 @@ This is a bash script used to monitoring and reporting problems in the server re
 
 Currently the script monitors the server load and disk usage parameters
 
+## Requirements:
+
+1. curl - used to post data. Usually it's installed already
+```
+apt install curl
+```
+
+2. mail - used to send emails
+```
+sudo apt install mailutils
+```
+
+2. install who - used to identify the logged in user's ip
+```
+apt install who
+```
+
 ## Instalation:
 
-clone the repository on the server which you would like to monitor
-
+1. clone the repository on the server which you would like to monitor
 ```
 git clone https://github.com/nchankov/sra.git
 ```
+
+2. copy .env.sample to .env and modify the variables if needed. Usually 
+   you have to set the email address (check Requirements point 2) and
+   pushbullet token (check Requirements point 1)
+
+2. Run activate.sh in the sra directory
+```
+./activate.sh
+```
+This will add a file sra into /etc/cron.d directory which will report
+the resources as well as it will add a file into /etc/profile.d which
+will report if a loggin happened on the machine
+
+3. 
 
 Then add this script into your crontab
 

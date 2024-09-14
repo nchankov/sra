@@ -4,7 +4,7 @@
 #                                                #
 # Server Resource Monitor                        #
 #                                                #
-# Script for monitoring server resources         #
+# Script for notifying unauthorized logins       #
 # @author Nik Chankov                            #
 # @contact https://github.com/nchankov           #
 #                                                #
@@ -19,29 +19,26 @@ if [ ! -f $DIR/.env ]; then
    exit
 fi
 
+
 set -a
 source $DIR/.env
 set +a
 
-echo $MAX_TIME_TO_REPEAT
-exit
 
 if [ -z $NAME ]; then
    NAME=`curl -s checkip.amazonaws.com`
 fi
 
-SUBJECT="Alert the server $NAME experience troubles"
+SUBJECT="Login into $NAME"
 
 ##Loop through properties and see if there is something to report
 
 message='';
-for file in $DIR/properties/*
-do
-   prop=$($file)
-   if [[ ! -z $prop ]]; then
-      message+=$prop"\n\n";
-   fi
-done
+if [ "$PAM_TYPE" != "close_session" ]; then
+    message=`./who.sh`
+    message+="\n"
+    message+=`date`
+fi
 
 if [[ ! -z $message ]]; then
    message=${message::-2}
