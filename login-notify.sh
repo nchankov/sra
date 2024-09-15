@@ -48,7 +48,7 @@ if [[ ! -z $message ]]; then
    message=${message::-2}
    for file in $DIR/channels/*
    do
-      resule=$($file "$SUBJECT" "$message")
-      echo $resule
+      result=$($file "$SUBJECT" "$message")
+      #echo $result
    done
 fi
