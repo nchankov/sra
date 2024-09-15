@@ -1,8 +1,9 @@
 # Server Resource Alert Script
 
-This is a bash script used to monitoring and reporting problems in the server resources.
-
-Currently the script monitors the server load and disk usage parameters
+This is a bash script used for monitoring and reporting problems in the server resources.
+Currently the script monitors processor usage, memory usage and disk usage and send 
+notification if the resource reach a certain threshold.
+Also it will send notification if someone login via ssh to the server.
 
 ## Requirements:
 
@@ -16,7 +17,7 @@ apt install curl
 sudo apt install mailutils
 ```
 
-2. install who - used to identify the logged in user's ip
+2. who - used to identify the logged in user's ip
 ```
 apt install who
 ```
