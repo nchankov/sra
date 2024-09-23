@@ -1,3 +1,7 @@
+#!/bin/bash
+
+# Script for checking if provided IP as parameter exists in the file .ip
+
 IP=$1
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
