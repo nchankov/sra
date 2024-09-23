@@ -25,4 +25,4 @@ curl -s --header "Access-Token: $PUSHBULLET_TOKEN" \
           \"type\":\"note\"\
      }" \
      --request POST \
-     https://api.pushbullet.com/v2/pushes > /tmp/sra-curl
+     https://api.pushbullet.com/v2/pushes > /dev/null 2>&1
