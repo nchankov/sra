@@ -1,9 +1,24 @@
 # Server Resource Alert Script
 
 This is a bash script used for monitoring and reporting problems in the server resources.
-Currently the script monitors processor usage, memory usage and disk usage and send 
-notification if the resource reach a certain threshold.
-Also it will send notification if someone login via ssh to the server.
+The script report on 3 activities:
+
+1. Resources exceed a threshould. Resources reported are: 
+   processor utilization
+   memory utilization
+   disk capacity
+
+   Use this to get notification if the server experience troubles. So you can act accordingly
+
+2. report if some login into the server
+
+   Use this for early notification if your server is hacked
+
+3. report of changed files in specific locations. 
+
+   Use this to monitor "hackable" locations such as Wordpress or other OpenSource projects which 
+   contain risk of hacking
+
 
 ## Requirements:
 
@@ -12,7 +27,8 @@ Also it will send notification if someone login via ssh to the server.
 apt install curl
 ```
 
-2. mail - used to send emails
+2. mail - used to send emails. Bear in mind you have to configure it properly
+   otherwise the emails could land in the spam folder
 ```
 sudo apt install mailutils
 ```
@@ -43,10 +59,33 @@ git clone https://github.com/nchankov/sra.git
 ./activate.sh
 ```
 This will add a file sra into /etc/cron.d directory which will report
-the resources as well as it will add a file into /etc/profile.d which
+the resources and location scan as well as it will add a file into /etc/profile.d which
 will report if a loggin happened on the machine
 
 3. Run deactivate.sh if you want to stop reporting
 ```
 ./deactivate.sh
 ```
+
+## Locations
+
+1. Use the following script to add location for scan:
+```
+./add.location.sh [location_directory extensions]
+```
+you can skip the parameters and the script will promptly ask about them and follow the
+instructions on the screen.
+
+2. If you want to list the existing locations use
+```
+./list.locations.sh
+```
+it will show you the list of all locations and extensions and exeptions
+
+3. If you want to remove location from scanning use
+```
+./remove.location.sh [location_directory]
+```
+it will remove all occurances of that location.
+
+N.B. The locations are stored in ./locations directorywith extension *.loc. You can remove a location by deleting the file
