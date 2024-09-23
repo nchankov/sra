@@ -89,3 +89,6 @@ it will show you the list of all locations and extensions and exeptions
 it will remove all occurances of that location.
 
 N.B. The locations are stored in ./locations directorywith extension *.loc. You can remove a location by deleting the file
+
+## monitor.sh - script which will print the resources of the server in a json file format
+it's useful if you need to build a web reporting tool
