@@ -20,7 +20,7 @@ if [ -f /tmp/sra-disk ]; then
     fi
 fi
 
-message=`df -H | grep -vE '^Filesystem|tmpfs|cdrom' | awk '+$5>=20 { print $5 " " $1}'`
+message=`df -H | grep -vE '^Filesystem|tmpfs|cdrom' | awk '+$5>='$MAX_DISK_USED' { print $5 " " $1}'`
 
 if [ -n "$message" ]; then
     if [ ! -f /tmp/sra-disk ]; then
