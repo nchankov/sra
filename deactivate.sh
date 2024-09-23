@@ -1,4 +1,5 @@
 #!/bin/bash
 
-rm /etc/cron.d/sra
-rm /etc/profile.d/sra.sh
+rm /etc/cron.d/sra.resources
+rm /etc/cron.d/sra.locations
+rm /etc/profile.d/sra.login.sh
