@@ -38,6 +38,12 @@ sudo apt install mailutils
 apt install who
 ```
 
+3. install bc if it's not installed
+```
+apt install bc
+```
+it helping calculating the memory usage
+
 ## Instalation:
 
 1. clone the repository on the server which you would like to monitor
