@@ -26,7 +26,7 @@ set +a
 
 #check if the ip is in the allowed range and if so don't bother to notify
 IP=`$DIR/who.ip.sh`
-is_our_ip=`$DIR/allowed-ips.sh $IP`
+is_our_ip=`$DIR/allowed.ips.sh $IP`
 if [ $is_our_ip == "1" ]; then
    exit;
 fi
@@ -49,6 +49,5 @@ if [[ ! -z $message ]]; then
    for file in $DIR/channels/*
    do
       result=$($file "$SUBJECT" "$message")
-      #echo $result
    done
 fi
