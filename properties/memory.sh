@@ -20,13 +20,10 @@ if [ -f /tmp/sra-memory ]; then
     fi
 fi
 
-mem_load1=`free -mh|grep "Mem:" | awk '{print $2}'` #all memory
-mem_load2=`free -mh|grep "Mem:" | awk '{print $7}'` #free memory
+mem_load1=`free -m|grep "Mem:" | awk '{print $2}'` #all memory
+mem_load2=`free -m|grep "Mem:" | awk '{print $7}'` #free memory
 
-total=`echo $mem_load1 | egrep -o '[0-9\.]{1,}'`
-free=`echo $mem_load2 | egrep -o '[0-9\.]{1,}'`
-
-usage=$(echo "(1-$free/$total)*100" | bc -l)
+usage=$(echo "(1-$mem_load2/$mem_load1)*100" | bc -l)
 
 used=`printf %.2f $(echo "$usage/1.00" | bc -l)`
 
