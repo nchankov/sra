@@ -4,9 +4,7 @@ This is a bash script used for monitoring and reporting problems in the server r
 The script report on 3 activities:
 
 1. Resources exceed a threshould. Resources reported are: 
-   processor utilization
-   memory utilization
-   disk capacity
+   processor utilization, memory utilization and disk capacity
 
    Use this to get notification if the server experience troubles. So you can act accordingly
 
@@ -42,7 +40,7 @@ apt install who
 ```
 apt install bc
 ```
-it helping calculating the memory usage
+it helps calculating the memory usage
 
 ## Instalation:
 
@@ -64,7 +62,7 @@ git clone https://github.com/nchankov/sra.git
 ```
 ./activate.sh
 ```
-This will add a file sra into /etc/cron.d directory which will report
+This will add 2 sra.* files into /etc/cron.d directory which will report
 the resources and location scan as well as it will add a file into /etc/profile.d which
 will report if a loggin happened on the machine
 
@@ -94,7 +92,7 @@ it will show you the list of all locations and extensions and exeptions
 ```
 it will remove all occurances of that location.
 
-N.B. The locations are stored in ./locations directorywith extension *.loc. You can remove a location by deleting the file
+N.B. The locations are stored in ./locations directorywith extension *.loc. You can also remove a location by deleting the file
 
 ## monitor.sh - script which will print the resources of the server in a json file format
 it's useful if you need to build a web reporting tool
