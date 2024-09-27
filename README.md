@@ -48,6 +48,7 @@ it helps calculating the memory usage
 ```
 git clone https://github.com/nchankov/sra.git
 ```
+Usually install it in /usr/local/lib/ directory for consystency
 
 2. copy .env.sample to .env and modify the variables if needed. Usually 
    you have to set the email address (check Requirements point 2) and
