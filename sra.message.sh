@@ -27,7 +27,7 @@ if [ -z $NAME ]; then
    NAME=`curl -s checkip.amazonaws.com`
 fi
 
-SUBJECT="Message from the server"
+SUBJECT="Message from the server $NAME"
 
 ##Loop through properties and see if there is something to report
 
