@@ -34,7 +34,6 @@ SUBJECT="Message from the server"
 message=$1
 
 if [[ ! -z $message ]]; then
-   message=${message::-2}
    for file in $DIR/channels/*
    do
       result=$($file "$SUBJECT" "$message")
