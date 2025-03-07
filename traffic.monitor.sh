@@ -6,6 +6,7 @@
 ##
 interval=2
 mif=$1
+name=$2
 
 ifconfig | grep $mif 2>/dev/null
 if [ $? -ne 0 ] ; then
@@ -35,7 +36,7 @@ function conf_pre {
    fi
 }
 
-
+i=0
 while true; do
 
    rx1=`ifconfig $mif | awk  '/RX.*bytes/ {print $5}'`
@@ -45,14 +46,23 @@ while true; do
    tx2=`ifconfig $mif | awk  '/TX.*bytes/ {print $5}'`
 
    clear
+
+   if [ -n "$2" ]; then
+      echo "$2"
+   fi
    rx=$(( (($rx2-$rx1)/$interval)* 8 ))
    tx=$(( (($tx2-$tx1)/$interval)* 8 ))
 
-   date
-   echo -n "traffic RX : "
+   printf "%${i}s\n" | tr ' ' '.'
+   echo -n "RX:"
    conf_pre $rx
    echo "${frpf}${pf}bps"
-   echo -n "traffic TX : "
+   echo -n "TX:"
    conf_pre $tx
    echo "${frpf}${pf}bps"
+   
+   if (( i > 10 )); then
+        i=0
+    fi
+   ((i++))
 done
