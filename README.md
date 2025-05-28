@@ -1,100 +1,99 @@
-# Server Resource Alert Script
+# Server Resource Alert Script (SRA)
 
-This is a bash script used for monitoring and reporting problems in the server resources.
-The script report on 3 activities:
+This script is created to monitor the server resource and various metrics on the server. The script is designed to use 
+plugins to extend its functionality.
 
-1. Resources exceed a threshould. Resources reported are: 
-   processor utilization, memory utilization and disk capacity
+The script has 2 main parts:
+1. plugins - these are the scripts which will be executed periodically to monitor the server. Once there is something to
+   report, the plugin will use the channels to report the data whenever it's needed.
+2. channels - these are the scripts which will be used to report the event.
 
-   Use this to get notification if the server experience troubles. So you can act accordingly
+Channels and Plugins can be added into the script easily in case your needs doesn't match the existing ones.
 
-2. report if some login into the server
+## Plugin api
 
-   Use this for early notification if your server is hacked
+Each plugin should reside in the `plugins` directory and should have the following structure:
 
-3. report of changed files in specific locations. 
+1. activate.sh - this script will be executed when the plugin is activated. Activation usually means some script would 
+   be added as a cron job and it would check the server periodically.
+2. deactivate.sh - this script will be executed when the plugin is deactivated. Deactivation usually means the cron job
+   would be removed and the plugin will not be executed anymore.
+3. monitor.sh - this is the script which will be executed periodically by the cron job.
 
-   Use this to monitor "hackable" locations such as Wordpress or other OpenSource projects which 
-   contain risk of hacking
+N.B. Make sure all those scripts are executable, otherwise the plugin will not work properly.
 
+There is a `sample` plugin in the `plugins` directory which you can use as a reference for creating your own plugins.
 
-## Requirements:
+## Channel api
+Each channel should reside in the `channels` directory and should have at least a `send.sh` script which will be 
+executed once a plugin has something to report.
 
-1. curl - used to post data. Usually it's installed already
+1. send.sh - this script will be executed by the plugin when it has something to report. The script should accept one or 
+two parameters which is the message to be sent.
+
+N.B. Make sure the script is executable, otherwise the channel will not work properly.
+
+There is a sample channel in the `channels` directory which you can use as a reference for creating your own channels.
+
+## Built in plugins
+This script comes with 3 built-in plugins which can be used out of the box.
+
+- **resources**   - monitors the server resources such as CPU, memory and disk usage
+- **login**       - monitors the logins on the server
+- **locations**   - monitors specific locations on the server for changes in the files
+
+## Built in channels
+This script comes with 3 built-in channels which can be used out of the box.
+
+- **email** - sends the report via email
+- **pushbullet** - sends the report via pushbullet
+- **curl** - sends the report to a specified URL
+
+## Requirements
+
+Make sure you have the following packages installed on your server:
+
 ```
 apt install curl
-```
-
-2. mail - used to send emails. Bear in mind you have to configure it properly
-   otherwise the emails could land in the spam folder
-```
-sudo apt install mailutils
-```
-
-2. who - used to identify the logged in user's ip
-```
-apt install who
-```
-
-3. install bc if it's not installed
-```
 apt install bc
+apt install awk
 ```
-it helps calculating the memory usage
+
 
 ## Instalation:
 
 1. clone the repository on the server which you would like to monitor
+
 ```
 git clone https://github.com/nchankov/sra.git
 ```
 Usually install it in /usr/local/lib/ directory for consystency although 
 it would work from any location
 
-2. copy .env.sample to .env and modify the variables if needed. Usually 
-   you have to set the email address (check Requirements point 2) and
-   pushbullet token (check Requirements point 1)
+1. Run the activate.sh script from the root sra directory and follow the instructions (in case of the plugins are not 
+   configured)
+   ```
+   ./activate.sh
+   ```
 
-3. if you want to allow certain IPs to be skipped when the user is logged 
-   in, then create .ip file (or copy the .ip.sample) and enter the allowed
-   IPs one at a row. You can use partial IPs e.g. 192.168 and it would 
-   match all ip starting with that
+   Or use a spacific pligin name to activate that plugin only
+   ```
+   ./activate.sh [plugin_name]
+   ```
 
-2. Run activate.sh in the sra directory
-```
-./activate.sh
-```
-This will add 2 sra.* files into /etc/cron.d directory which will report
-the resources and location scan as well as it will add a file into /etc/profile.d which
-will report if a loggin happened on the machine
+2. If you want to stop all the plugins use:
 
-3. Run deactivate.sh if you want to stop reporting
-```
-./deactivate.sh
-```
+   ```
+   ./deactivate.sh
+   ```
 
-## Locations
+   Or if you want to stop a specific plugin use:
 
-1. Use the following script to add location for scan:
-```
-./add.location.sh [location_directory extensions]
-```
-you can skip the parameters and the script will promptly ask about them and follow the
-instructions on the screen.
+   ```
+   ./deactivate.sh [plugin_name]
+   ```
 
-2. If you want to list the existing locations use
-```
-./list.locations.sh
-```
-it will show you the list of all locations and extensions and exeptions
+3. Make sure channels are activated (have .env in them), so it will send the reports.
 
-3. If you want to remove location from scanning use
-```
-./remove.location.sh [location_directory]
-```
-it will remove all occurances of that location.
-
-N.B. The locations are stored in ./locations directorywith extension *.loc. You can also remove a location by deleting the file
-
-## monitor.sh - script which will print the resources of the server in a json file format
-it's useful if you need to build a web reporting tool
+In case you need to learn more about the built-in plugins and channels, please check the `README.md` files in the 
+corresponding directories.

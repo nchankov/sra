@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#Script for adding location for scanning for file changes
+# Script for adding location for scanning for file changes
 
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
