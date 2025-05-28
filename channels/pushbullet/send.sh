@@ -5,7 +5,7 @@ DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 # Check if .env file exists
 if [ ! -f $DIR/.env ]; then
-     exit 1
+     exit
 fi
 
 # Import the .env file if it exists
@@ -15,7 +15,7 @@ set +a
 
 # Don't send if the $TOKEN is not set
 if [ -z $TOKEN ];then
-     exit 1
+     exit
 fi
 
 # Check if curl is installed

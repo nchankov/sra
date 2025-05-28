@@ -5,7 +5,7 @@ DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 # Check if .env file exists
 if [ ! -f $DIR/.env ]; then
-    exit 1
+    exit
 fi
 
 # Import the .env file if it exists
@@ -15,7 +15,7 @@ set +a
 
 # Check if there is a configuration
 if [ -z $SAMPLE ];then
-    exit 1
+    exit
 fi
 
 DEFAULTVALUE=""
