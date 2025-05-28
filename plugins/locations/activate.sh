@@ -7,7 +7,7 @@ BASENAME=$(basename "$DIR")
 # Check if the .env file exists
 if [ ! -f $DIR/.env ]; then
    echo "";
-   echo "LOCATIONS: Configuration .env file is missing";
+   echo "$BASENAME: Configuration .env file is missing";
    echo "";
    exit
 fi
