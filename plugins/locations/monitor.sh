@@ -84,7 +84,7 @@ done
 
 # Notify if there are some results
 if [ $total_changed_files -gt 0 ] && [ $NOTIFY_LOCATION_SCAN == 1 ]; then
-    SUBJECT="Alert the server $NAME have changed files in the last $LOCATION_INTERVAL minutes"
+    SUBJECT="Alert the server $HOSTNAME have changed files in the last $LOCATION_INTERVAL minutes"
     MESSAGE="Please check the /var/log/sra/sra_$(date '+%Y%m%d') file for the list of changed files"
     #create directory if it doesn't exists
     if [ ! -d "/var/log/sra" ]; then

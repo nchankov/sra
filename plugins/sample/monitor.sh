@@ -16,12 +16,7 @@ set -a
 source $DIR/.env
 set +a
 
-# Remote IP (in case of server without real IP)
-if [ -z $NAME ]; then
-   NAME=`curl -s checkip.amazonaws.com`
-fi
-
-SUBJECT="Alert the server $NAME has something to report"
+SUBJECT="Alert the server $HOSTNAME has something to report"
 MESSAGE=$SAMPLE;
 
 # Send the message. This will be sent only if $MESSAGE is not empty

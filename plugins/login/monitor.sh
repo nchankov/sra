@@ -10,12 +10,7 @@ if [ $is_our_ip == "1" ]; then
    exit;
 fi
 
-# Get the server name
-if [ -z $NAME ]; then
-   NAME=`curl -s checkip.amazonaws.com`
-fi
-
-SUBJECT="Login into $NAME"
+SUBJECT="Login into $HOSTNAME"
 
 # Loop through properties and see if there is something to report
 

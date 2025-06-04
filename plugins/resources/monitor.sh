@@ -16,15 +16,10 @@ set -a
 source $DIR/.env
 set +a
 
-# Get the server public IP or hostname
-if [ -z $NAME ]; then
-   NAME=`curl -s checkip.amazonaws.com`
-fi
-
-SUBJECT="Alert the server $NAME experience troubles"
+SUBJECT="Alert the server $HOSTNAME experience troubles"
 
 # Loop through all properties files in the properties directory
-MESSAGE='';
+MESSAGE=""
 for file in $DIR/properties/*
 do
    prop=$($file)
